@@ -9,7 +9,7 @@ namespace Machine_Learning
         private IAlgorithm algorithm;
         private bool result;
         private bool hasBeenTrained;
-        private double[][] workingFunction;
+        private double[] workingFunction;
         public double[][] input, output;
 
         public bool Result
@@ -23,16 +23,17 @@ namespace Machine_Learning
             private set { hasBeenTrained = value; }
         }
 
-        public BasicModel() : base(new LinearRegression_Algorithm())
-        {
-            
-        }
+        //public BasicModel() : 
+        //    base(new LinearRegression_Algorithm())
+        //{
+
+        //}
 
         public BasicModel(IAlgorithm algorithm)
         {
             this.algorithm = algorithm;
             this.hasBeenTrained = false;
-            this.workingFunction = new double[0][];
+            this.workingFunction = new double[0];
         }
 
         public void Predict(double[][] input)
@@ -45,9 +46,13 @@ namespace Machine_Learning
 
         public void ChangeAlgorithm(IAlgorithm algorithm) => this.algorithm = algorithm;
 
-        private void Fit()
+        public void Fit(double[][] input, double[][] output)
         {
+            if (!HasBeenTrained)
+                HasBeenTrained = true;
+
             algorithm.Run(input, output);
+            workingFunction = new double[algorithm.OutputFunction.Length];
             workingFunction = algorithm.OutputFunction;
         }
 

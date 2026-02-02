@@ -197,6 +197,17 @@ namespace Machine_Learning
             return s.ToString();
         }
 
-        private static (int, int) GetDimensions(double[][] matrix) => (matrix.Length, matrix[0].Length);
+        public static string ToString(double[] matrix)
+        {
+            StringBuilder s = new StringBuilder();
+            
+            for(int i = 0; i < matrix.Length; i++)
+                s.Append(matrix[i]+" ");
+            s.Append("\n");
+
+            return s.ToString();
+        }
+
+        public static (int, int) GetDimensions(double[][] matrix) => (matrix.Length, matrix[0].Length);
     }
 }
