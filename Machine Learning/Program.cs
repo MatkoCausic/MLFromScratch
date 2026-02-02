@@ -10,6 +10,8 @@ namespace Machine_Learning
     {
         static void Main(string[] args)
         {
+            var Agent = new BasicModel();
+
             double[][] X = new double[][]
             {
                 [1,0,6],[1,0,20],[1,1,25],[1,0,10]
