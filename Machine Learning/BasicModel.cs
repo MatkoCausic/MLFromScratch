@@ -25,7 +25,7 @@ namespace Machine_Learning
 
         public BasicModel()
         {
-            this.algorithm = new LinearRegression_Algorithm();
+            this.algorithm = new MultiLinearRegression_Algorithm();
             this.hasBeenTrained = false;
             this.workingFunction = new double[0];
             input = null;

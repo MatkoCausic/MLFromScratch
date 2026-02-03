@@ -1,3 +1,15 @@
+https://www.geeksforgeeks.org/machine-learning/ml-classification-vs-regression/
+
+Implementacija polinomijalne regresije
+- https://www.geeksforgeeks.org/machine-learning/regression-in-machine-learning/
+- https://www.geeksforgeeks.org/machine-learning/polynomial-regression-from-scratch-using-python/
+
+Implementacija klasifikacija
+- binarna
+	- https://www.geeksforgeeks.org/machine-learning/understanding-logistic-regression/
+- nebinarna lol
+	- 
+
 .csv Handler
 - u poèetku napraviti samo da može iz .csv rasporediti numerièke vrijednosti u matrice
 - implementirati .csv handler koji odvaja i pamti atribute na jedno mjesto, vrijednosti na drugo
@@ -31,6 +43,16 @@ Namespace
 - dobro distribuirati imenovanja namepsaceva i odvojiti ovisno o naèinu treniranja i rezultata koje želimo postiæi
 - znaèi odvojiti prema nadziranom, nenadziranom i reiforcement uèenju
 - odvojiti nadzirano na binarnu klasifikaciju, višeklasnu klasifikaciju i regresiju
+
+Sugestija modela
+- treba napraviti kakav ML model valja koristiti ovisno o danom problemu
+- koristeæi statistièke alate i vizualno zakljuèivanje treba odrediti koji model paše
+- isto se odreðuje preko izgleda:
+	- scatter plotta (je li linearno, nelinearno i kako zaobljeno)
+	- jesu li greške ovisne jedna o drugoj
+	- homoscedasticity vs heteroscedascity
+	- je li greške pratite normalnu distribuciju
+	- multikolinearnos (https://www.geeksforgeeks.org/machine-learning/multicollinearity-in-regression-analysis/)
 
 Strategy obrazac
 - vjerojatno se može na algoritmima rasporediti kako æe se obraðivati i birati ovisno je li klasifikacijski (bin ili multi) te regresijski

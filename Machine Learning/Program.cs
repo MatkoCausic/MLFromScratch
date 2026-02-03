@@ -12,9 +12,14 @@ namespace Machine_Learning
         {
             var Agent = new BasicModel();
 
-            double[][] X = new double[][]
+            double[][] X1 = new double[][]
             {
                 [0,6,5],[0,20,12],[1,25,21],[0,10,2]
+            };
+
+            double[][] X2 = new double[][]
+            {
+                [0],[0],[1],[0]
             };
             double[][] Y = new double[][]
             {
@@ -24,7 +29,7 @@ namespace Machine_Learning
                 [2000]
             };
 
-            Agent.Fit(X, Y);
+            Agent.Fit(X1, Y);
 
             double[] inputParameters = [1,20,5];
 

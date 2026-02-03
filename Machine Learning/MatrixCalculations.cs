@@ -208,5 +208,30 @@ namespace Machine_Learning
         }
 
         public static (int, int) GetDimensions(double[][] matrix) => (matrix.Length, matrix[0].Length);
+
+
+
+        public static double[][] Intercept(double[][] matrix)
+        {
+            var (rows, columns) = Matrix.GetDimensions(matrix);
+            int newMatrixColumns = columns + 1;
+
+            double[][] interceptedMatrix = new double[rows][];
+            for (int i = 0; i < rows; i++)
+                interceptedMatrix[i] = new double[newMatrixColumns];
+
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < newMatrixColumns; j++)
+                {
+                    if (j == 0)
+                        interceptedMatrix[i][j] = 1;
+                    else
+                        interceptedMatrix[i][j] = matrix[i][j - 1];
+                }
+            }
+
+            return interceptedMatrix;
+        }
     }
 }
