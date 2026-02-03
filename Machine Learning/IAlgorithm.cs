@@ -6,7 +6,6 @@ namespace Machine_Learning
 {
     internal interface IAlgorithm
     {
-        double[] OutputFunction { get; }
-        void Run(double[][] input, double[][] output);
+        double[] Run(double[][] input, double[][] output);
     }
 }

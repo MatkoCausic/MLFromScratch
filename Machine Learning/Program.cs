@@ -10,7 +10,7 @@ namespace Machine_Learning
     {
         static void Main(string[] args)
         {
-            var Agent = new BasicModel(new LinearRegression_Algorithm());
+            var Agent = new BasicModel();
 
             double[][] X = new double[][]
             {
@@ -26,14 +26,12 @@ namespace Machine_Learning
 
             Agent.Fit(X, Y);
 
+            double[] inputParameters = [1,20,5];
 
-            Console.WriteLine(Matrix.ToString(Agent.workingFunction));
-            //double[][] beta = Matrix.Inverse(Matrix.Multiply(Matrix.Transpose(X), X));
-            //beta = Matrix.Multiply(beta, Matrix.Transpose(X));
-            //beta = Matrix.Multiply(beta, Y);
+            Console.WriteLine(Agent.Predict(inputParameters));
 
-            //Console.WriteLine(Matrix.ToString(beta));
-
+            //Console.WriteLine(Matrix.ToString(Agent.WorkingFunction));
+            
             //File.WriteAllText("C:\\Users\\Matko\\Desktop\\filename.txt", "Hello, World!");
             //Console.WriteLine(File.ReadAllText("C:\\Users\\Matko\\Desktop\\filename.txt"));
         }

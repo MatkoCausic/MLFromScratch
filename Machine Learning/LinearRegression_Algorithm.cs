@@ -6,37 +6,35 @@ namespace Machine_Learning
 {
     internal class LinearRegression_Algorithm : IAlgorithm
     {
-        private double[] outputFunction;
-        public double[] OutputFunction
-        {
-            get { return outputFunction; }
-            private set { outputFunction = value; }
-        }
 
         public LinearRegression_Algorithm()
         {
-            outputFunction = Array.Empty<double>();
 
         }
 
-        public void Run(double[][] input, double[][] output)
+        public double[] Run(double[][] input, double[][] output)
         {
+            double[] outputFunction = Array.Empty<double>();
+
             input = Intercept(input);
             Console.WriteLine(Matrix.ToString(input));
 
             /* buffer = (inputT * input)^-1 * inputT * output */
+            /* B = (X^T*X)^-1 * X^T*Y */
             double[][] buffer = Matrix.Inverse(Matrix.Multiply(Matrix.Transpose(input), input));
             buffer = Matrix.Multiply(buffer, Matrix.Transpose(input));
             buffer = Matrix.Multiply(buffer, output);
 
-            if (OutputFunction == null || OutputFunction.Length != buffer.Length)
-                OutputFunction = new double[buffer.Length];
+            if (outputFunction == null || outputFunction.Length != buffer.Length)
+                outputFunction = new double[buffer.Length];
 
             for (int i = 0; i < buffer.Length; i++)
-                OutputFunction[i] = buffer[i][0];
+                outputFunction[i] = buffer[i][0];
+
+            return outputFunction;
         }
 
-        public static double[][] Intercept(double[][] matrix)
+        private static double[][] Intercept(double[][] matrix)
         {
             var (rows, columns) = Matrix.GetDimensions(matrix);
             int newMatrixColumns = columns+1;

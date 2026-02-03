@@ -1,0 +1,24 @@
+.csv Handler
+- u poèetku napraviti samo da može iz .csv rasporediti numerièke vrijednosti u matrice
+- implementirati .csv handler koji odvaja i pamti atribute na jedno mjesto, vrijednosti na drugo
+- bitno je odvojiti atribute kao string da ih se kasnije može ruèno birati i unositi za lagani prikaz na grafovima kao dropdown
+- OneHotEncoder je bitno implementirati
+
+Retrain
+- implementirati na LR_A da kada veæ istreniran agent je spreman za ponovno treniranje da ne izgubi prijašnji "napredak"
+- da LR_A to postigne, treba spremiti/memorirati/upamtiti sljedeæe: A = X^T*X i b = X^T*Y
+- nadogradnja se izvršava sljedeæom formulom: A = A+X_new^T*X_new, b = b+X_new^T*Y_new
+- rezultat je A*b = w iliti w = A^-1*b
+
+.nešto gradijentni spust spominje SGD/mini-batch o kretanju od veæ danih weightsova i samo napraviš nekoliko treninga s novim podaticma
+
+Namespace
+- dobro distribuirati imenovanja namepsaceva i odvojiti ovisno o naèinu treniranja i rezultata koje želimo postiæi
+- znaèi odvojiti prema nadziranom, nenadziranom i reiforcement uèenju
+- odvojiti nadzirano na binarnu klasifikaciju, višeklasnu klasifikaciju i regresiju
+
+Strategy Obrazac
+- vjerojatno se može na algoritmima rasporediti kako æe se obraðivati i birati ovisno je li klasifikacijski (bin ili multi) te regresijski
+
+- napravi obrazac Factory
+- napravi obrazac Decorator

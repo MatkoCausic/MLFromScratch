@@ -7,41 +7,34 @@ namespace Machine_Learning
     internal class BasicModel
     {
         private IAlgorithm algorithm;
-        private bool result;
         private bool hasBeenTrained;
         private double[] workingFunction;
-        public double[][] input, output;
+        public double[][]? input, output;
 
-        public bool Result
-        {
-            get { return result; }
-            private set { result = value; }
-        }
         public bool HasBeenTrained
         {
             get { return hasBeenTrained; }
             private set { hasBeenTrained = value; }
         }
 
-        //public BasicModel() : 
-        //    base(new LinearRegression_Algorithm())
-        //{
-
-        //}
-
-        public BasicModel(IAlgorithm algorithm)
+        public double[] WorkingFunction
         {
-            this.algorithm = algorithm;
-            this.hasBeenTrained = false;
-            this.workingFunction = new double[0];
+            get { return workingFunction; }
+            private set { workingFunction = value; }
         }
 
-        public void Predict(double[][] input)
+        public BasicModel()
         {
-            if (!HasBeenTrained)
-                throw new Exception("Model hasn't been trained. Run initial training...");
+            this.algorithm = new LinearRegression_Algorithm();
+            this.hasBeenTrained = false;
+            this.workingFunction = new double[0];
+            input = null;
+            output = null;
+        }
 
-            //workingFunction = 
+        public BasicModel(IAlgorithm algorithm) : base()
+        {
+            this.algorithm = algorithm;
         }
 
         public void ChangeAlgorithm(IAlgorithm algorithm) => this.algorithm = algorithm;
@@ -51,9 +44,22 @@ namespace Machine_Learning
             if (!HasBeenTrained)
                 HasBeenTrained = true;
 
-            algorithm.Run(input, output);
-            workingFunction = new double[algorithm.OutputFunction.Length];
-            workingFunction = algorithm.OutputFunction;
+            workingFunction = algorithm.Run(input, output);
+        }
+
+        public double Predict(double[] input)
+        {
+            if (!hasBeenTrained)
+                throw new Exception("Model hasn't been trained yet...");
+
+            if (input.Length != workingFunction.Length-1)
+                throw new Exception("There are missing parameters to make a prediction...");
+
+            double result = workingFunction[0];
+            for (int i = 1; i <= input.Length; i++)
+                result += workingFunction[i] * input[i - 1];
+
+            return result;
         }
 
         private void Validate()

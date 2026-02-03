@@ -8,7 +8,6 @@ namespace Machine_Learning
 {
     internal static class Matrix
     {
-
         public static double[][] Multiply(double scalar, double[][] matrix)
         {
             var (rows, columns) = GetDimensions(matrix);
