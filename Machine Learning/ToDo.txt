@@ -4,6 +4,21 @@
 - bitno je odvojiti atribute kao string da ih se kasnije može ruèno birati i unositi za lagani prikaz na grafovima kao dropdown
 - OneHotEncoder je bitno implementirati
 
+Dodati evaluaciju modela
+- predavanje_2 OSU
+
+Implementacija statistièkih metoda
+- skaliranje (normalizacija) - min-max [0,1]
+- standardizacija - 0 je aritmetièka sredina (mean) xi/n
+
+
+Odreðivanje nominalnih vs ordinalnih velièina
+- ordinalna velièina se koristi na atributima koji se mogu usporeðivati (IQ, dobna skupina, ocjena iz kolegija...)
+	- izvodi se kao enum type -> enum {"Low" = 0, "Medium" = 1, "High" = 2"}
+- nominalna velièina se koristi na atributima koji nemaju veze s usporedbom, nemaju korelacije (boja oèiju, spol, mjesto stanovanja...)
+	- izvodi se kao matrica 0,0,1: 0,1,0: 1,0,0
+	- OneHotEncoder
+
 Retrain
 - implementirati na LR_A da kada veæ istreniran agent je spreman za ponovno treniranje da ne izgubi prijašnji "napredak"
 - da LR_A to postigne, treba spremiti/memorirati/upamtiti sljedeæe: A = X^T*X i b = X^T*Y
@@ -17,7 +32,7 @@ Namespace
 - znaèi odvojiti prema nadziranom, nenadziranom i reiforcement uèenju
 - odvojiti nadzirano na binarnu klasifikaciju, višeklasnu klasifikaciju i regresiju
 
-Strategy Obrazac
+Strategy obrazac
 - vjerojatno se može na algoritmima rasporediti kako æe se obraðivati i birati ovisno je li klasifikacijski (bin ili multi) te regresijski
 
 - napravi obrazac Factory
