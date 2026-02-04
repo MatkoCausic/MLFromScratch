@@ -1,28 +1,28 @@
 pipeline {
   agent any
 
-    triggers{
-        pollSCM '*/1 * * * *'
-    }
+  triggers { pollSCM('*/1 * * * *') }
+
   stages {
+    stage('Restore') {
+      steps {
+        echo 'Restoring...'
+        bat 'dotnet --info'
+        bat 'dotnet restore "Machine Learning.sln"'
+      }
+    }
+
     stage('Build') {
       steps {
-        echo 'Hello from Build stage'
-        bat 'echo Hello from Build (bat)'
+        echo 'Building...'
+        bat 'dotnet build "Machine Learning.sln" -c Release --no-restore'
       }
     }
 
     stage('Test') {
       steps {
-        echo 'Hello from Test stage'
-        bat 'echo Hello from Test (bat)'
-      }
-    }
-
-    stage('Deliver') {
-      steps {
-        echo 'Hello from Deliver stage'
-        bat 'echo Hello from Deliver (bat)'
+        echo 'Testing...'
+        bat 'dotnet test "Machine Learning.sln" -c Release --no-build'
       }
     }
   }
