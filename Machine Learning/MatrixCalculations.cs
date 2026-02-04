@@ -210,7 +210,7 @@ namespace Machine_Learning
         public static (int, int) GetDimensions(double[][] matrix) => (matrix.Length, matrix[0].Length);
 
 
-
+        // vjerojatno će trebati pomaknuti kada napravimo prigodniju utility klasu
         public static double[][] Intercept(double[][] matrix)
         {
             var (rows, columns) = Matrix.GetDimensions(matrix);

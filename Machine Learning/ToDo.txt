@@ -52,7 +52,7 @@ Sugestija modela
 	- jesu li greške ovisne jedna o drugoj
 	- homoscedasticity vs heteroscedascity
 	- je li greške pratite normalnu distribuciju
-	- multikolinearnos (https://www.geeksforgeeks.org/machine-learning/multicollinearity-in-regression-analysis/)
+	- multikolinearnost (https://www.geeksforgeeks.org/machine-learning/multicollinearity-in-regression-analysis/)
 
 Strategy obrazac
 - vjerojatno se može na algoritmima rasporediti kako æe se obraðivati i birati ovisno je li klasifikacijski (bin ili multi) te regresijski
