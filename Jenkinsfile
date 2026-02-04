@@ -1,33 +1,29 @@
-pipeline{
-    agent any
+pipeline {
+  agent any
 
     triggers{
         pollSCM '*/1 * * * *'
     }
-    stages{
-        stage('Build'){
-            steps{
-                echo "Building.."
-                sh '''
-                echo "doing build stuff.."
-                '''
-            }
-        }
-        stage('Test'){
-            steps{
-                echo "Testing.."
-                sh '''
-                echo "doing test stuff.."
-                '''
-            }
-        }
-        stage('Deliver'){
-            steps{
-                echo 'Deliver....'
-                sh '''
-                echo "doing delivery stuff.."
-                '''
-            }
-        }
+  stages {
+    stage('Build') {
+      steps {
+        echo 'Hello from Build stage'
+        bat 'echo Hello from Build (bat)'
+      }
     }
+
+    stage('Test') {
+      steps {
+        echo 'Hello from Test stage'
+        bat 'echo Hello from Test (bat)'
+      }
+    }
+
+    stage('Deliver') {
+      steps {
+        echo 'Hello from Deliver stage'
+        bat 'echo Hello from Deliver (bat)'
+      }
+    }
+  }
 }
