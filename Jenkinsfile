@@ -4,6 +4,12 @@ pipeline {
   triggers { pollSCM('*/1 * * * *') }
 
   stages {
+    stage('Prepare Workspace'){
+      steps{
+        deleteDir()
+      }
+    }
+
     stage('Restore') {
       steps {
         echo 'Restoring...'
