@@ -1,31 +1,31 @@
-pipeline {
-  agent any
-  options{
-    skipDefaultCheckout(true)
-  }
-
-  triggers { pollSCM('*/1 * * * *') }
-
-  stages {
-    stage('Checkout'){
-      steps{
-        deleteDir()
-        checkout scm
+stage('Publish') {
+  steps {
+    script {
+      // odredi OS folder
+      def osFolder
+      if (isUnix()) {
+        def uname = sh(script: 'uname', returnStdout: true).trim()
+        osFolder = (uname == 'Darwin') ? 'Mac' : 'Linux'
+      } else {
+        osFolder = 'Win'
       }
-    }
 
-    stage('Restore') {
-      steps {
-        echo 'Restoring...'
-        bat 'dotnet --info'
-        bat 'dotnet restore "Machine Learning.slnx"'
-      }
-    }
+      // baza Builds foldera (Desktop)
+      def base = isUnix()
+        ? "${env.HOME}/Desktop/Builds"
+        : "${env.USERPROFILE}\\Desktop\\Builds"
 
-    stage('Build') {
-      steps {
-        echo 'Building...'
-        bat 'dotnet build "Machine Learning.slnx" -c Release --no-restore'
+      // final output folder
+      def outDir = isUnix()
+        ? "${base}/${osFolder}"
+        : "${base}\\${osFolder}"
+
+      echo "Publishing to: ${outDir}"
+
+      if (isUnix()) {
+        sh "dotnet publish \"Machine Learning.slnx\" -c Release -o \"${outDir}\""
+      } else {
+        bat "dotnet publish \"Machine Learning.slnx\" -c Release -o \"${outDir}\""
       }
     }
   }

@@ -57,5 +57,8 @@ Sugestija modela
 Strategy obrazac
 - vjerojatno se može na algoritmima rasporediti kako æe se obraðivati i birati ovisno je li klasifikacijski (bin ili multi) te regresijski
 
+Template Method obrazac
+- provjeriti
+
 - napravi obrazac Factory
 - napravi obrazac Decorator
