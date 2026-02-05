@@ -1,31 +1,32 @@
-stage('Publish') {
-  steps {
-    script {
-      // odredi OS folder
-      def osFolder
-      if (isUnix()) {
-        def uname = sh(script: 'uname', returnStdout: true).trim()
-        osFolder = (uname == 'Darwin') ? 'Mac' : 'Linux'
-      } else {
-        osFolder = 'Win'
+pipeline {
+  agent any
+
+  options {
+    skipDefaultCheckout(true)
+  }
+
+  stages {
+    stage('Checkout') {
+      steps {
+        deleteDir()
+        checkout scm
       }
+    }
 
-      // baza Builds foldera (Desktop)
-      def base = isUnix()
-        ? "${env.HOME}/Desktop/Builds"
-        : "${env.USERPROFILE}\\Desktop\\Builds"
+    stage('Publish (Windows)') {
+      steps {
+        script {
+          if (isUnix()) {
+            error("Ovaj job je trenutno podešen samo za Windows (bat).")
+          }
 
-      // final output folder
-      def outDir = isUnix()
-        ? "${base}/${osFolder}"
-        : "${base}\\${osFolder}"
+          def outDir = "${env.USERPROFILE}\\Desktop\\Builds\\Win"
 
-      echo "Publishing to: ${outDir}"
-
-      if (isUnix()) {
-        sh "dotnet publish \"Machine Learning.slnx\" -c Release -o \"${outDir}\""
-      } else {
-        bat "dotnet publish \"Machine Learning.slnx\" -c Release -o \"${outDir}\""
+          bat "if not exist \"${outDir}\" mkdir \"${outDir}\""
+          bat "dotnet --info"
+          bat "dotnet publish \"Machine Learning.slnx\" -c Release -o \"${outDir}\""
+          bat "dir \"${outDir}\""
+        }
       }
     }
   }
