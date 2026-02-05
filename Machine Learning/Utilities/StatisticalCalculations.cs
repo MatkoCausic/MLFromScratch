@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Machine_Learning
+namespace Machine_Learning.Utilities
 {
-    internal class PolynomialRegression_Algorithm
+    internal static class Statistic
     {
+
     }
 }

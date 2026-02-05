@@ -1,13 +1,13 @@
-﻿using System;
+﻿using Machine_Learning.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Machine_Learning
+namespace Machine_Learning.Supervised.Regression
 {
-    internal class MultiLinearRegression_Algorithm : IAlgorithm
+    internal class LinearRegression_Algorithm : IAlgorithm
     {
-
-        public MultiLinearRegression_Algorithm()
+        public LinearRegression_Algorithm()
         {
 
         }
@@ -15,10 +15,10 @@ namespace Machine_Learning
         public double[] Run(double[][] input, double[][] output)
         {
             var (rows, columns) = Matrix.GetDimensions(input);
-            if (columns < 2)
-                throw new Exception("Input dimension is too small. Try to implement given problem on LinearRegression_Algorithm...");
+            if (columns > 1)
+                throw new Exception("Input dimensions are too large. Try to implement given problem on MultipleLinearRegression_Algorithm...");
 
-            double[] outputFunction = Array.Empty<double>();
+            double[] outputFunction = new double[2];
 
             input = Matrix.Intercept(input);
 
@@ -28,14 +28,10 @@ namespace Machine_Learning
             buffer = Matrix.Multiply(buffer, Matrix.Transpose(input));
             buffer = Matrix.Multiply(buffer, output);
 
-            if (outputFunction == null || outputFunction.Length != buffer.Length)
-                outputFunction = new double[buffer.Length];
-
             for (int i = 0; i < buffer.Length; i++)
                 outputFunction[i] = buffer[i][0];
 
             return outputFunction;
         }
-
     }
 }

@@ -4,7 +4,7 @@ using System.Numerics;
 using System.Runtime.ExceptionServices;
 using System.Text;
 
-namespace Machine_Learning
+namespace Machine_Learning.Utilities
 {
     internal static class Matrix
     {
