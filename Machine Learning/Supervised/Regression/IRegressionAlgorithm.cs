@@ -4,11 +4,12 @@ using System.Text;
 
 namespace Machine_Learning.Supervised.Regression
 {
-    internal interface IRegressionAlgorithm : IAlgorithm
+    internal interface IRegressionAlgorithm
     {
-        double[] OutputFunction { get; }
+        double[] Run(Matrix input, Matrix output);
+        //double[] OutputFunction { get; }
 
-        double Predict(double[][] X);
-        void Fit(double[][] X, double[][] y);
+        //double Predict(double[][] X);
+        //void Fit(double[][] X, double[][] y);
     }
 }

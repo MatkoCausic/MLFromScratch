@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Machine_Learning.Utilities
 {
-    internal static class Matrix
+    internal static class MatrixStat
     {
         public static double[][] Multiply(double scalar, double[][] matrix)
         {
@@ -49,7 +49,6 @@ namespace Machine_Learning.Utilities
 
         public static double Determinant(double[][] matrix)
         {
-            double determinant = 0;
             double res = 0;
             var (rows, columns) = GetDimensions(matrix);
             if (rows != columns)
@@ -213,7 +212,7 @@ namespace Machine_Learning.Utilities
         // vjerojatno će trebati pomaknuti kada napravimo prigodniju utility klasu
         public static double[][] Intercept(double[][] matrix)
         {
-            var (rows, columns) = Matrix.GetDimensions(matrix);
+            var (rows, columns) = MatrixStat.GetDimensions(matrix);
             int newMatrixColumns = columns + 1;
 
             double[][] interceptedMatrix = new double[rows][];

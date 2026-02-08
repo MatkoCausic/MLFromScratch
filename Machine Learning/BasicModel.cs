@@ -1,14 +1,16 @@
-﻿using System;
+﻿using Machine_Learning.Supervised.Regression;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Machine_Learning
 {
+    // Je li mogu model svesti na metode koje će vrijediti za svaki moguću funkciju? Ako imaš lin za lin da vrijedi, ako imaš nelin da vrijedi za nelin
     internal class BasicModel
     {
-        private IAlgorithm algorithm;
+        private IRegressionAlgorithm algorithm;
         private bool hasBeenTrained;
-        private double[] workingFunction;
+        private /*IResult*/ double[] workingFunction;
         public double[][]? input, output;
 
         public bool HasBeenTrained
@@ -32,14 +34,14 @@ namespace Machine_Learning
             output = null;
         }
 
-        public BasicModel(IAlgorithm algorithm) : base()
+        public BasicModel(IRegressionAlgorithm algorithm) : base()
         {
             this.algorithm = algorithm;
         }
 
-        public void ChangeAlgorithm(IAlgorithm algorithm) => this.algorithm = algorithm;
+        public void ChangeAlgorithm(IRegressionAlgorithm algorithm) => this.algorithm = algorithm;
 
-        public void Fit(double[][] input, double[][] output)
+        public void Fit(Matrix input, Matrix output)
         {
             if (!HasBeenTrained)
                 HasBeenTrained = true;

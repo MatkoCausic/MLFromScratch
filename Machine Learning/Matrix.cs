@@ -1,0 +1,242 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using System.Text;
+
+namespace Machine_Learning
+{
+    internal class Matrix
+    {
+        double[][] data;
+        int rows;
+        int columns;
+
+        public double[][] Data
+        {
+            get { return data; }
+            set { data = value; }
+        }
+        public int Rows
+        {
+            get { return rows; }
+        }
+        public int Columns
+        {
+            get { return columns; }
+        }
+
+        
+        public Matrix(int rows, int columns)
+        {
+            Data = new double[rows][];
+            for (int i = 0; i < rows; i++)
+                Data[i] = new double[columns];
+
+            this.rows = rows;
+            this.columns = columns;
+        }
+
+        public Matrix(double[][] data)
+        {
+            this.Data = data ?? throw new ArgumentNullException(nameof(data));
+            this.rows = data.Length;
+            this.columns = (data.Length > 0 && data[0] != null) ? data[0].Length : 0;
+        }
+
+        public static Matrix operator *(double scalar, Matrix matrix)
+        {
+            Matrix product = new Matrix(matrix.Rows, matrix.Columns);
+
+            for (int i = 0; i < matrix.Rows; i++)
+                for (int j = 0; j < matrix.Columns; j++)
+                    product.Data[i][j] = matrix.Data[i][j] * scalar;
+
+            return product;
+        }
+
+        public static Matrix operator* (Matrix lhs, Matrix rhs)
+        {
+            if(lhs.Columns != rhs.Rows)
+                throw new Exception("Matrices can't be multiplied because dimensions don't match...");
+
+            Matrix product = new Matrix(lhs.Rows, rhs.Columns);
+
+            for(int i = 0; i < product.Rows; i++)
+            {
+                for(int j = 0; j < product.Columns; j++)
+                {
+                    double buffer = 0;
+                    for (int k = 0; k < lhs.Columns; k++)
+                        buffer += lhs.Data[i][k] * rhs.Data[k][j];
+                    product.Data[i][j] = buffer;
+                }
+            }
+
+            return product;
+        }
+
+        public double Determinant()
+        {
+            double res = 0;
+
+            if (Rows != Columns)
+                throw new Exception("Only square matrices have determinant...");
+
+            if (Rows == 1)
+                return this.Data[0][0];
+
+            if (Rows == 2)
+                return this.Data[0][0] * this.Data[1][1] - this.Data[0][1] * this.Data[1][0];
+
+            for (int col = 0; col < Rows; col++)
+            {
+                Matrix sub = new Matrix(Rows - 1, Rows - 1);
+                //double[][] sub = new double[Rows - 1][];
+                //for (int i = 0; i < Rows - 1; i++)
+                //    sub[i] = new double[Rows - 1];
+
+                for (int i = 1; i < Rows; i++)
+                {
+                    int subcol = 0;
+                    for (int j = 0; j < Rows; j++)
+                    {
+                        if (j == col)
+                            continue;
+
+                        sub.Data[i - 1][subcol++] = this.Data[i][j];
+                    }
+                }
+
+                int sign = (col % 2 == 0) ? 1 : -1;
+                res += sign * this.Data[0][col] * sub.Determinant();
+            }
+
+            return res;
+        }
+
+        public Matrix Inverse()
+        {
+            if(data == null)
+                throw new ArgumentNullException(nameof(this.Data));
+            int n = Rows;
+            if (n == 0)
+                throw new ArgumentException("Matrix has no rows.", nameof(this.Data));
+            int m = Columns; //?? throw new ArgumentException("Row 0 is null.", nameof(this.Data));
+            if(m != n)
+                throw new Exception("Only square matrices have an inverse...");
+
+            // Validate rectangular
+            for (int i = 0; i < n; i++)
+                if (this.Data[i] == null || this.Data[i].Length != n)
+                    throw new ArgumentException("Matrix must be rectangular and square.", nameof(this.Data));
+
+            // Build augmented matrix [A | I] in double
+            Matrix aug = new Matrix(n, 2*n);
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                    aug.Data[i][j] = this.Data[i][j];
+                aug.Data[i][n + i] = 1.0;
+            }
+
+            const double eps = 1e-12;
+
+            // Gauss–Jordan elimination with partial pivoting
+            for(int col = 0; col < n; col++)
+            {
+                // Find pivot row with max abs value in this column
+                int pivotRow = col;
+                double maxAbs = Math.Abs(aug.Data[col][col]);
+                for(int r = col+1; r < n; r++)
+                {
+                    double v = Math.Abs(aug.Data[r][col]);
+                    if(v > maxAbs)
+                    {
+                        maxAbs = v;
+                        pivotRow = r;
+                    }
+                }
+
+                if (maxAbs < eps)
+                    throw new Exception("Matirx is singular (no inverse).");
+
+                // Swap current row with pivotRow
+                if(pivotRow != col)
+                {
+                    var tmp = aug.Data[col];
+                    aug.Data[col] = aug.Data[pivotRow];
+                    aug.Data[pivotRow] = tmp;
+                }
+
+                // Normalize pivot row
+                double pivot = aug.Data[col][col];
+                for (int j = 0; j < 2 * n; j++)
+                    aug.Data[col][j] /= pivot;
+
+                // Eliminate this column in all other rows
+                for(int r = 0; r < n; r++)
+                {
+                    if (r == col)
+                        continue;
+                    double factor = aug.Data[r][col];
+                    if (Math.Abs(factor) < eps)
+                        continue;
+
+                    for (int j = 0; j < 2 * n; j++)
+                        aug.Data[r][j] -= factor * aug.Data[col][j];
+                }
+            }
+
+            Matrix inv = new Matrix(n, n);
+            for (int i = 0; i < n; i++)
+                Array.Copy(aug.Data[i], n, inv.Data[i], 0, n);
+
+            return inv;
+        }
+
+        public Matrix Transpose()
+        {
+            Matrix transposed = new Matrix(Columns, Rows);
+
+            for(int i = 0; i < Rows; i++)
+                for(int j = 0; j < Columns; j++)
+                    transposed.Data[j][i] = this.Data[i][j];
+
+            return transposed;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < Rows; i++)
+            {
+                for (int j = 0; j < Columns; j++)
+                    sb.Append(this.Data[i][j] + " ");
+                sb.Append("\n");
+            }
+
+            return sb.ToString();
+        }
+
+        public Matrix Intercept()
+        {
+            int newMatrixColumns = Columns + 1;
+
+            Matrix interceptedMatrix = new Matrix(Rows, newMatrixColumns);
+
+            for(int i = 0; i < Rows; i++)
+            {
+                for(int j = 0; j < newMatrixColumns; j++)
+                {
+                    if (j == 0)
+                        interceptedMatrix.Data[i][j] = 1;
+                    else
+                        interceptedMatrix.Data[i][j] = this.Data[i][j - 1];
+                }
+            }
+
+            return interceptedMatrix;
+        }
+    }
+}

@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Machine_Learning
 {
-    internal interface IAlgorithm
+    internal interface IResult
     {
-        double[] Run(double[][] input, double[][] output);
+        void Run(double[][] input);
     }
 }

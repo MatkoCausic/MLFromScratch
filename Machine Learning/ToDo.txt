@@ -1,5 +1,7 @@
 https://www.geeksforgeeks.org/machine-learning/ml-classification-vs-regression/
 
+IResult implementacija za razlièite tipove funkcija
+
 Implementacija polinomijalne regresije
 - https://www.geeksforgeeks.org/machine-learning/regression-in-machine-learning/
 - https://www.geeksforgeeks.org/machine-learning/polynomial-regression-from-scratch-using-python/
