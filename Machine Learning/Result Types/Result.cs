@@ -18,6 +18,6 @@ namespace Machine_Learning
             this.data = Array.Empty<double>();
         }
 
-        public abstract double ProcessData(Matrix input, Matrix output);
+        public abstract double ProcessData(Matrix input);
     }
 }

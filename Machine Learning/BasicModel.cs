@@ -9,10 +9,9 @@ namespace Machine_Learning
     // Je li mogu model svesti na metode koje će vrijediti za svaki moguću funkciju? Ako imaš lin za lin da vrijedi, ako imaš nelin da vrijedi za nelin
     internal class BasicModel
     {
-        private IRegressionAlgorithm algorithm;
+        private ISupervisedAlgorithm algorithm;
         private bool hasBeenTrained;
         private Result workingFunction;
-        public double[][]? input, output;
 
         public bool HasBeenTrained
         {
@@ -31,16 +30,18 @@ namespace Machine_Learning
             this.algorithm = new LinearRegression_Algorithm();
             this.hasBeenTrained = false;
             this.workingFunction = NullResult.GetInstance();
-            input = null;
-            output = null;
         }
 
-        public BasicModel(IRegressionAlgorithm algorithm) : this()
+        public BasicModel(ISupervisedAlgorithm algorithm) : this()
         {
             this.algorithm = algorithm;
         }
 
-        public void ChangeAlgorithm(IRegressionAlgorithm algorithm) => this.algorithm = algorithm;
+        public void ChangeAlgorithm(ISupervisedAlgorithm algorithm)
+        {
+            this.algorithm = algorithm;
+            WorkingFunction = NullResult.GetInstance();
+        }
 
         public void Fit(Matrix input, Matrix output)
         {
@@ -50,19 +51,15 @@ namespace Machine_Learning
             workingFunction = algorithm.Train(input, output);
         }
 
-        public double Predict(double[] input)
+        public double Predict(Matrix input)
         {
             if (!hasBeenTrained)
                 throw new Exception("Model hasn't been trained yet...");
 
-            if (input.Length != workingFunction.Data.Length-1)
+            if (input.Rows != workingFunction.Data.Length-1)
                 throw new Exception("There are missing parameters to make a prediction...");
 
-            double result = workingFunction.Data[0];
-            for (int i = 1; i <= input.Length; i++)
-                result += workingFunction.Data[i] * input[i - 1];
-
-            return result;
+            return workingFunction.ProcessData(input);
         }
 
         private void Validate()

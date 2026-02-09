@@ -2,6 +2,7 @@
 using System.IO;
 using System.Numerics;
 using System.Text.RegularExpressions;
+using Machine_Learning.Supervised.Regression;
 using Machine_Learning.Utilities;
 
 namespace Machine_Learning
@@ -11,7 +12,6 @@ namespace Machine_Learning
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
-            var Agent = new BasicModel();
 
             Matrix X1 = new Matrix(new double[][]
             {
@@ -31,10 +31,20 @@ namespace Machine_Learning
                 [2000]
             });
 
+            var Agent = new BasicModel();
+
             Console.WriteLine(Utility.ToString(X1.Data));
             Agent.Fit(X1, y);
+            Matrix inputParameters = new Matrix(new double[][]
+            {
+                [1],[20],[5]
+            });
 
-            double[] inputParameters = [1,20,5];
+            // LIN 2902,857142857132
+            // 1434,2857142857156 382,85714285713993 65,71428571428518 -45,71428571428544
+
+            // POLY 2902,857142857132
+            // 1434,2857142857156 382,85714285713993 65,71428571428518 -45,71428571428544
 
             Console.WriteLine(Agent.Predict(inputParameters));
 

@@ -13,9 +13,14 @@ namespace Machine_Learning.Result_Types
         }
 
 
-        public override double ProcessData(Matrix input, Matrix output)
+        public override double ProcessData(Matrix input)
         {
-            return 0;
+            double result = this.Data[0];
+
+            for (int i = 1; i <= input.Rows; i++)
+                result += this.Data[i] * input.Data[i - 1][0];
+
+            return result;
         }
 
     }

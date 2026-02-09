@@ -7,7 +7,7 @@ namespace Machine_Learning.Result_Types
     // singleton koristi sealed modifikator kako bi spriječili nasljeđivanje kroz vanjske klase
     internal sealed class NullResult : Result
     {
-        static NullResult instance;
+        static NullResult? instance;
         private NullResult() { }
 
         public static NullResult GetInstance()
@@ -20,6 +20,6 @@ namespace Machine_Learning.Result_Types
             return instance;
         }
 
-        public override double ProcessData(Matrix input, Matrix output) => 0;
+        public override double ProcessData(Matrix input) => 0;
     }
 }

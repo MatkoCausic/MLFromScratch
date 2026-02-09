@@ -1,53 +1,31 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Text;
-//using Machine_Learning.Utilities;
+﻿using Machine_Learning.Result_Types;
+using Machine_Learning.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
-//namespace Machine_Learning.Supervised.Regression
-//{
-//    internal class PolynomialRegression_Algorithm : IRegressionAlgorithm
-//    {
-//        double[] outputFunction;
+namespace Machine_Learning.Supervised.Regression
+{
+    internal class PolynomialRegression_Algorithm : IRegressionAlgorithm
+    {
 
-//        public double[] OutputFunction
-//        {
-//            get { return outputFunction; }
-//            private set { outputFunction = value; }
-//        }
+        public PolynomialRegression_Algorithm() { }
 
-//        public PolynomialRegression_Algorithm()
-//        {
+        public Result Train(Matrix input, Matrix output)
+        {
+            input = input.Intercept();
 
-//        }
+            /* buffer = (inputT * input)^-1 * inputT * output */
+            /* B = (X^T*X)^-1 * X^T*Y */
+            Matrix buffer = (input.Transpose() * input).Inverse() * input.Transpose() * output;
 
-//        public double[] Run(double[][] input, double[][] output)
-//        {
-//            var (rows, columns) = Matrix.GetDimensions(input);
-//            if (columns < 2)
-//                throw new Exception("Input dimension is too small. Try to implement given problem on LinearRegression_Algorithm...");
+            Result result = new Polynomial(buffer.Rows);
 
-//            double[] outputFunction = Array.Empty<double>();
+            for (int i = 0; i < buffer.Rows; i++)
+                result.Data[i] = buffer.Data[i][0];
 
-//            input = Matrix.Intercept(input);
+            return result;
 
-//            /* buffer = (inputT * input)^-1 * inputT * output */
-//            /* B = (X^T*X)^-1 * X^T*Y */
-//            double[][] buffer = Matrix.Inverse(Matrix.Multiply(Matrix.Transpose(input), input));
-//            buffer = Matrix.Multiply(buffer, Matrix.Transpose(input));
-//            buffer = Matrix.Multiply(buffer, output);
-
-//            if (outputFunction == null || outputFunction.Length != buffer.Length)
-//                outputFunction = new double[buffer.Length];
-
-//            for (int i = 0; i < buffer.Length; i++)
-//                outputFunction[i] = buffer[i][0];
-
-//            return outputFunction;
-//        }
-
-//        public double Predict(double[][] input)
-//        {
-
-//        }
-//    }
-//}
+        }
+    }
+}

@@ -4,8 +4,8 @@ using System.Text;
 
 namespace Machine_Learning
 {
-    internal interface ISupervisedAlgorithms<out IResult>
+    internal interface ISupervisedAlgorithm
     {
-        IResult Run(double[][] input, double[][] output);
+        Result Train(Matrix input, Matrix output);
     }
 }
