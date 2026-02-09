@@ -3,7 +3,6 @@ using System.IO;
 using System.Numerics;
 using System.Text.RegularExpressions;
 using Machine_Learning.Utilities;
-using MathNet.Numerics.LinearAlgebra;
 
 namespace Machine_Learning
 {
