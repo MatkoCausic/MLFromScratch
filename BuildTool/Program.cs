@@ -31,7 +31,7 @@ static int Run(string file, string args, string workingDir)
 
 var repoRoot = Directory.GetCurrentDirectory();
 
-var csproj = Path.Combine(repoRoot, "MachineLearning", "Machine Learning.csproj");
+var csproj = Path.Combine(repoRoot, "Machine Learning", "Machine Learning.csproj");
 
 var outDir = Path.Combine(
     Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory),
