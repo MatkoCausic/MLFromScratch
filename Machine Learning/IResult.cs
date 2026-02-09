@@ -6,6 +6,6 @@ namespace Machine_Learning
 {
     internal interface IResult
     {
-        void Run(double[][] input);
+        void Predict(double[][] input);
     }
 }
