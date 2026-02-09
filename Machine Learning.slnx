@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="BuildTool/BuildTool.csproj" Id="805e5489-14a3-4ed9-8105-b4f05598e1ad" />
   <Project Path="Machine Learning/Machine Learning.csproj" />
 </Solution>
