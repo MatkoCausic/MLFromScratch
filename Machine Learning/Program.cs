@@ -31,14 +31,14 @@ namespace Machine_Learning
                 [2000]
             });
 
-            Console.WriteLine(MatrixStat.ToString(X1.Data));
+            Console.WriteLine(Utility.ToString(X1.Data));
             Agent.Fit(X1, y);
 
             double[] inputParameters = [1,20,5];
 
             Console.WriteLine(Agent.Predict(inputParameters));
 
-            Console.WriteLine(MatrixStat.ToString(Agent.WorkingFunction.Data));
+            Console.WriteLine(Utility.ToString(Agent.WorkingFunction.Data));
             
             //File.WriteAllText("C:\\Users\\Matko\\Desktop\\filename.txt", "Hello, World!");
             //Console.WriteLine(File.ReadAllText("C:\\Users\\Matko\\Desktop\\filename.txt"));
