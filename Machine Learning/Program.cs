@@ -10,6 +10,7 @@ namespace Machine_Learning
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Hello, World!");
             var Agent = new BasicModel();
 
             Matrix X1 = new Matrix(new double[][]
@@ -37,7 +38,7 @@ namespace Machine_Learning
 
             Console.WriteLine(Agent.Predict(inputParameters));
 
-            Console.WriteLine(MatrixStat.ToString(Agent.WorkingFunction));
+            Console.WriteLine(MatrixStat.ToString(Agent.WorkingFunction.Data));
             
             //File.WriteAllText("C:\\Users\\Matko\\Desktop\\filename.txt", "Hello, World!");
             //Console.WriteLine(File.ReadAllText("C:\\Users\\Matko\\Desktop\\filename.txt"));

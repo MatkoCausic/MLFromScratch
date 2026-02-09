@@ -1,4 +1,5 @@
-﻿using Machine_Learning.Utilities;
+﻿using Machine_Learning.Result_Types;
+using Machine_Learning.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,23 +13,20 @@ namespace Machine_Learning.Supervised.Regression
 
         }
 
-        public double[] Run(Matrix input, Matrix output)
+        public Result Train(Matrix input, Matrix output)
         {
-            if (input.Columns > 1)
-                throw new Exception("Input dimensions are too large. Try to implement given problem on MultipleLinearRegression_Algorithm...");
-
-            double[] outputFunction = new double[2];
-
             input = input.Intercept();
 
             /* buffer = (inputT * input)^-1 * inputT * output */
             /* B = (X^T*X)^-1 * X^T*Y */
             Matrix buffer = (input.Transpose() * input).Inverse() * input.Transpose() * output;
 
-            for (int i = 0; i < buffer.Rows; i++)
-                outputFunction[i] = buffer.Data[i][0];
+            Result result = new Linear(buffer.Rows);
 
-            return outputFunction;
+            for (int i = 0; i < buffer.Rows; i++)
+                result.Data[i] = buffer.Data[i][0];
+
+            return result;
         }
     }
 }

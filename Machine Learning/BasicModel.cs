@@ -1,4 +1,5 @@
-﻿using Machine_Learning.Supervised.Regression;
+﻿using Machine_Learning.Result_Types;
+using Machine_Learning.Supervised.Regression;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -10,7 +11,7 @@ namespace Machine_Learning
     {
         private IRegressionAlgorithm algorithm;
         private bool hasBeenTrained;
-        private /*IResult*/ double[] workingFunction;
+        private Result workingFunction;
         public double[][]? input, output;
 
         public bool HasBeenTrained
@@ -19,7 +20,7 @@ namespace Machine_Learning
             private set { hasBeenTrained = value; }
         }
 
-        public double[] WorkingFunction
+        public Result WorkingFunction
         {
             get { return workingFunction; }
             private set { workingFunction = value; }
@@ -27,14 +28,14 @@ namespace Machine_Learning
 
         public BasicModel()
         {
-            this.algorithm = new MultiLinearRegression_Algorithm();
+            this.algorithm = new LinearRegression_Algorithm();
             this.hasBeenTrained = false;
-            this.workingFunction = new double[0];
+            this.workingFunction = NullResult.GetInstance();
             input = null;
             output = null;
         }
 
-        public BasicModel(IRegressionAlgorithm algorithm) : base()
+        public BasicModel(IRegressionAlgorithm algorithm) : this()
         {
             this.algorithm = algorithm;
         }
@@ -46,7 +47,7 @@ namespace Machine_Learning
             if (!HasBeenTrained)
                 HasBeenTrained = true;
 
-            workingFunction = algorithm.Run(input, output);
+            workingFunction = algorithm.Train(input, output);
         }
 
         public double Predict(double[] input)
@@ -54,12 +55,12 @@ namespace Machine_Learning
             if (!hasBeenTrained)
                 throw new Exception("Model hasn't been trained yet...");
 
-            if (input.Length != workingFunction.Length-1)
+            if (input.Length != workingFunction.Data.Length-1)
                 throw new Exception("There are missing parameters to make a prediction...");
 
-            double result = workingFunction[0];
+            double result = workingFunction.Data[0];
             for (int i = 1; i <= input.Length; i++)
-                result += workingFunction[i] * input[i - 1];
+                result += workingFunction.Data[i] * input[i - 1];
 
             return result;
         }

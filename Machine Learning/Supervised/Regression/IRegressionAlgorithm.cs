@@ -6,7 +6,7 @@ namespace Machine_Learning.Supervised.Regression
 {
     internal interface IRegressionAlgorithm
     {
-        double[] Run(Matrix input, Matrix output);
+        Result Train(Matrix input, Matrix output);
         //double[] OutputFunction { get; }
 
         //double Predict(double[][] X);
