@@ -40,11 +40,11 @@ var outDir = Path.Combine(
 
 Directory.CreateDirectory(outDir);
 
-var args =
+var dotnetArgs =
     $"publish \"{csproj}\" -c Release -r win-x64 --self-contained true " +
     $"-o \"{outDir}\" " +
     "/p:PublishSingleFile=true " +
     "/p:IncludeNativeLibrariesForSelfExtract=true";
 
 Console.WriteLine($"Publishing to: {outDir}");
-return Run("dotnet", args, repoRoot);
+return Run("dotnet", dotnetArgs, repoRoot);
