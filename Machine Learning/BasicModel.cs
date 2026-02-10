@@ -45,6 +45,12 @@ namespace Machine_Learning
 
         public void Fit(Matrix input, Matrix output)
         {
+            if (input.Rows != output.Rows)
+                throw new ArgumentException($"X.Rows ({input.Rows}) must equal y.Rows ({output.Rows}).");
+
+            if (output.Columns != 1)
+                throw new ArgumentException($"y must be N×1. Got {output.Rows}×{output.Columns}.");
+
             if (!HasBeenTrained)
                 HasBeenTrained = true;
 
@@ -56,15 +62,15 @@ namespace Machine_Learning
             if (!hasBeenTrained)
                 throw new Exception("Model hasn't been trained yet...");
 
-            if (input.Rows != workingFunction.Data.Length-1)
-                throw new Exception("There are missing parameters to make a prediction...");
+            //if (input.Rows != workingFunction.Data.Length - 1)
+            //    throw new Exception("There are missing parameters to make a prediction...");
 
             return workingFunction.ProcessData(input);
         }
 
         private void Validate()
         {
-
+            throw new NotImplementedException();
         }
     }
 

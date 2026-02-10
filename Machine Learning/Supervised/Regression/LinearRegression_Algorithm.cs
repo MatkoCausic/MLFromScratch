@@ -8,10 +8,7 @@ namespace Machine_Learning.Supervised.Regression
 {
     internal class LinearRegression_Algorithm : IRegressionAlgorithm
     {
-        public LinearRegression_Algorithm()
-        {
-
-        }
+        public LinearRegression_Algorithm() { }
 
         public Result Train(Matrix input, Matrix output)
         {

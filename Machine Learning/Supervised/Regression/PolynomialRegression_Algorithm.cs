@@ -8,11 +8,14 @@ namespace Machine_Learning.Supervised.Regression
 {
     internal class PolynomialRegression_Algorithm : IRegressionAlgorithm
     {
+        int DEGREE = 3;
+
 
         public PolynomialRegression_Algorithm() { }
 
         public Result Train(Matrix input, Matrix output)
         {
+            input = Transform(input);
             input = input.Intercept();
 
             /* buffer = (inputT * input)^-1 * inputT * output */
@@ -25,7 +28,28 @@ namespace Machine_Learning.Supervised.Regression
                 result.Data[i] = buffer.Data[i][0];
 
             return result;
-
         }
+
+        #region CHATGPTed
+        private Matrix Transform(Matrix input)
+        {
+
+            Matrix degreeMatrix = new Matrix(input.Rows, input.Columns * DEGREE);
+
+            for(int i = 0; i < input.Rows; i++)
+            {
+                for(int j = 1; j <= DEGREE; j++)
+                {
+                    for(int k = 0; k < input.Columns; k++)
+                    {
+                        int col = (j - 1) * input.Columns + k;
+                        degreeMatrix.Data[i][col] = Math.Pow(input.Data[i][k], j);
+                    }
+                }
+            }
+
+            return degreeMatrix;
+        }
+        #endregion
     }
 }
