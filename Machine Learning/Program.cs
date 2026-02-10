@@ -2,6 +2,7 @@
 using System.IO;
 using System.Numerics;
 using System.Text.RegularExpressions;
+using Machine_Learning.Result_Types;
 using Machine_Learning.Supervised.Regression;
 using Machine_Learning.Utilities;
 
@@ -9,7 +10,7 @@ namespace Machine_Learning
 {
     class Program
     {
-        static void Main(string[] args)
+        static void RegressionTest()
         {
             Console.WriteLine("Hello, World!");
 
@@ -54,9 +55,47 @@ namespace Machine_Learning
             Console.WriteLine("Prediction result: " + Agent.Predict(inputParameters));
 
             Console.WriteLine(Utility.ToString(Agent.WorkingFunction.Data));
-            
-            //File.WriteAllText("C:\\Users\\Matko\\Desktop\\filename.txt", "Hello, World!");
-            //Console.WriteLine(File.ReadAllText("C:\\Users\\Matko\\Desktop\\filename.txt"));
         }
+        static void FileTest()
+        {
+            File.WriteAllText("C:\\Users\\Matko\\Desktop\\filename.txt", "Hello, World!");
+            Console.WriteLine(File.ReadAllText("C:\\Users\\Matko\\Desktop\\filename.txt"));
+        }
+        static void Main(string[] args)
+        {
+            //RegressionTest();
+            ClassificationTest();
+            //FileTest();
+        }
+
+        static void ClassificationTest()
+        {
+            Matrix X = new Matrix(new double[][]
+            {
+                [3.78],[2.44],[2.09],[0.14],[1.72],[1.65],[4.92],[4.37],[4.96],[4.52],[3.69],[5.88]
+            });
+
+            Matrix y = new Matrix(new double[][]
+            {
+                [0],[0],[0],[0],[0],[0],[1],[1],[1],[1],[1],[1]
+            });
+
+            //BasicModel model = new BasicModel();
+            //model.Fit(X, y);
+            //Result whatever = model.WorkingFunction;
+
+            //// -0,3522920203735144 0,2546689303904923
+            //Console.WriteLine(Utility.ToString(whatever.Data));
+
+            //Matrix linOut = new Matrix(new double[][]
+            //{
+            //    [-0.352292020373514, 0.2546689303904923]
+            //});
+
+            Logistic log = new Logistic();
+            double result = log.ProcessData(X);
+            Console.WriteLine(result);
+        }
+
     }
 }

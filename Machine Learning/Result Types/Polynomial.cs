@@ -7,12 +7,10 @@ namespace Machine_Learning.Result_Types
     internal class Polynomial : Result
     {
         int DEGREE = 3;
-
         public Polynomial(int length)
         {
             this.Data = new double[length];
         }
-
 
         public override double ProcessData(Matrix input)
         {

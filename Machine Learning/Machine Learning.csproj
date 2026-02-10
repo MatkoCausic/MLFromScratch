@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <Folder Include="Reinforcement\" />
-    <Folder Include="Supervised\Classification\" />
+    <Folder Include="Supervised\Classification\Multiclass\" />
     <Folder Include="Unsupervised\" />
   </ItemGroup>
 

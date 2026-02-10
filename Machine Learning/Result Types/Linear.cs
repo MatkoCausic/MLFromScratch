@@ -12,7 +12,6 @@ namespace Machine_Learning.Result_Types
             this.Data = new double[length];
         }
 
-
         public override double ProcessData(Matrix input)
         {
             double result = this.Data[0];
