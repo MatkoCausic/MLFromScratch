@@ -16,9 +16,12 @@ namespace Machine_Learning.Result_Types
         {
             double result = this.Data[0];
 
+            Console.WriteLine(result);
             for (int i = 1; i <= input.Rows; i++)
+            {
+                Console.WriteLine(this.Data[i]+"*"+input.Data[i - 1][0]);
                 result += this.Data[i] * input.Data[i - 1][0];
-
+            }
             return result;
         }
 

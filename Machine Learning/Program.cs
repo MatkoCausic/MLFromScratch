@@ -24,13 +24,18 @@ namespace Machine_Learning
                 [0],[0],[1],[0]
             }
             );
-            Matrix y = new Matrix(new double[][]
+            Matrix y1 = new Matrix(new double[][]
             {
                 [1600],
                 [2200],
                 [2500],
                 [2000]
             });
+            Matrix y2 = new Matrix(new double[][]
+            {
+                [1],[20],[5]
+            }
+            );
 
             Matrix X3 = new Matrix(new double[][]
             {
@@ -42,19 +47,24 @@ namespace Machine_Learning
                 [100],[90],[80],[60],[60],[55],[60],[65],[70],[70],[75],[76],[78],[79],[90],[99],[99],[100]
             });
 
-            var Agent = new BasicModel(new PolynomialRegression_Algorithm());
+            var RidgeAgent = new BasicModel(new RidgeRegression_Algorithm(0.5));
+            var LinearAgent = new BasicModel();
 
-            Agent.Fit(X3, y3);
+            RidgeAgent.Fit(X1, y1);
+            LinearAgent.Fit(X1, y1);
 
+            //Matrix inputParameters = new Matrix(new double[][]
+            //{
+            //    [17]
+            //});
 
-            Matrix inputParameters = new Matrix(new double[][]
-            {
-                [17]
-            });
+            Console.WriteLine("Linear prediction result: " + LinearAgent.Predict(y2));
+            Console.WriteLine(Utility.ToString(LinearAgent.WorkingFunction.Data));
 
-            Console.WriteLine("Prediction result: " + Agent.Predict(inputParameters));
+            Console.WriteLine();
 
-            Console.WriteLine(Utility.ToString(Agent.WorkingFunction.Data));
+            Console.WriteLine("Ridge prediction result: " + RidgeAgent.Predict(y2));
+            Console.WriteLine(Utility.ToString(RidgeAgent.WorkingFunction.Data));
         }
         static void FileTest()
         {
@@ -63,9 +73,28 @@ namespace Machine_Learning
         }
         static void Main(string[] args)
         {
-            //RegressionTest();
-            ClassificationTest();
+            RegressionTest();
+            //ClassificationTest();
+            //StatisticTest();
             //FileTest();
+        }
+
+        static void StatisticTest()
+        {
+            double[] actual = [2, 3, 5, 5, 9];
+            double[] calculated = [3, 3, 8, 7, 6];
+
+            Console.WriteLine(Statistic.MeanAbsoluteError(actual, calculated));
+
+            double[] Y_true = [1, 1, 2, 2, 4];
+            double[] Y_pred = [0.6, 1.29, 1.99, 2.69, 3.4];
+
+            Console.WriteLine(Statistic.MeanSquaredError(Y_true, Y_pred));
+
+            double[] expected = [31, 23, 14, 10.5, 6.5];
+            double[] experimental = [32.5, 21.9, 15.1, 9, 5.2];
+
+            Console.WriteLine(Statistic.RootMeanSquareError(expected, experimental));
         }
 
         static void ClassificationTest()
@@ -92,9 +121,9 @@ namespace Machine_Learning
             //    [-0.352292020373514, 0.2546689303904923]
             //});
 
-            Logistic log = new Logistic();
-            double result = log.ProcessData(X);
-            Console.WriteLine(result);
+            //Logistic log = new Logistic();
+            //double result = log.ProcessData(X);
+            //Console.WriteLine(result);
         }
 
     }

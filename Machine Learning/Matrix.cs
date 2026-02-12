@@ -79,6 +79,20 @@ namespace Machine_Learning
 
             return product;
         }
+        
+        public static Matrix operator+ (Matrix lhs, Matrix rhs)
+        {
+            if (lhs.Rows != rhs.Rows || lhs.Columns != rhs.Columns)
+                throw new Exception("Matrices can't be summed because dimensions don't match...");
+
+            Matrix sum = new Matrix(lhs.Rows, lhs.Columns);
+
+            for (int i = 0; i < sum.Rows; i++)
+                for (int j = 0; j < sum.Columns; j++)
+                    sum.Data[i][j] = lhs.Data[i][j] + rhs.Data[i][j];
+
+            return sum;
+        }
 
         public double Determinant()
         {
@@ -471,6 +485,24 @@ namespace Machine_Learning
             }
 
             return interceptedMatrix;
+        }
+
+        // Singular - square by rows
+        public Matrix Singular()
+        {
+            Matrix singular = new Matrix(Rows, Rows);
+            for (int i = 0; i < Rows; i++)
+            {
+                for (int j = 0; j < Columns; j++)
+                {
+                    if (i == j)
+                        singular.Data[i][j] = 1;
+                    else
+                        singular.Data[i][j] = 0;
+                }
+            }
+
+            return singular;
         }
     }
 }

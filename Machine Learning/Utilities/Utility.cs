@@ -33,5 +33,22 @@ namespace Machine_Learning.Utilities
 
             return s.ToString();
         }
+
+        public static double Norm(double[] input)
+        {
+            double result = 0;
+            foreach (double x in input)
+                result += Math.Pow(x, 2);
+
+            return Math.Sqrt(result);
+        }
+        public static double Norm(List<double> input)
+        {
+            double result = 0;
+            foreach (double x in input)
+                result += Math.Pow(x, 2);
+
+            return Math.Sqrt(result);
+        }
     }
 }

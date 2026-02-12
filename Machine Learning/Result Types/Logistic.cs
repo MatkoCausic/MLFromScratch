@@ -13,11 +13,6 @@ namespace Machine_Learning.Result_Types
             set { data = value; }
         }
 
-        public Logistic()
-        {
-            this.data = Array.Empty<double>();
-        }
-
         public Logistic(int length)
         {
             this.data = new double[length];
