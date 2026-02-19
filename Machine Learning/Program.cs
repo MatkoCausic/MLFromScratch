@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Numerics;
+using CommandLine;
 using System.Text.RegularExpressions;
 using Machine_Learning.Result_Types;
 using Machine_Learning.Supervised.Regression;
@@ -10,6 +11,24 @@ namespace Machine_Learning
 {
     class Program
     {
+        [Verb("buildModel", HelpText = "Start building a machine learning model.")]
+        public class BuildModelOptions()
+        {
+            public int RunBuildModelAndReturnExitCode(BuildModelOptions opts)
+            {
+                return 0;
+            }
+        }
+
+        public class Options
+        {
+            [Option('v', "verbose", Required = false, HelpText = "Set output to verbose messages.")]
+            public bool Verbose { get; set; }
+        }
+
+        
+
+
         static void RegressionTest()
         {
             Console.WriteLine("Hello, World!");
@@ -47,8 +66,8 @@ namespace Machine_Learning
                 [100],[90],[80],[60],[60],[55],[60],[65],[70],[70],[75],[76],[78],[79],[90],[99],[99],[100]
             });
 
-            var RidgeAgent = new BasicModel(new RidgeRegression_Algorithm(0.5));
-            var LinearAgent = new BasicModel();
+            var RidgeAgent = new SupervisedModel(new RidgeRegression_Algorithm(0.5));
+            var LinearAgent = new SupervisedModel();
 
             RidgeAgent.Fit(X1, y1);
             LinearAgent.Fit(X1, y1);
@@ -71,9 +90,30 @@ namespace Machine_Learning
             File.WriteAllText("C:\\Users\\Matko\\Desktop\\filename.txt", "Hello, World!");
             Console.WriteLine(File.ReadAllText("C:\\Users\\Matko\\Desktop\\filename.txt"));
         }
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
-            RegressionTest();
+            return CommandLine.Parser.Default.ParseArguments<BuildModelOptions>(args)
+                .MapResult(
+                    (BuildModelOptions opts) => RunBuildModelAndReturnExitCode(opts),
+                    errs => 1);
+
+            Parser.Default.ParseArguments<Options>(args)
+                .WithParsed<Options>(o =>   
+                {
+                    if (o.Verbose)
+                    {
+                        Console.WriteLine($"Verbose output enabled. Current Arguments: -v {o.Verbose}");
+                        Console.WriteLine("Quick Start Example! App is in Verbose mode!");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Current Arguments: -v {o.Verbose}");
+                        Console.WriteLine("Quick Start Example!");
+                    }
+                });
+
+
+            //RegressionTest();
             //ClassificationTest();
             //StatisticTest();
             //FileTest();

@@ -1,7 +1,13 @@
 https://www.geeksforgeeks.org/machine-learning/ml-classification-vs-regression/
 https://www.geeksforgeeks.org/machine-learning/regression-in-machine-learning/
 
-IResult implementacija za razlièite tipove funkcija
+Napravi konzolnu aplikaciju
+- napravi argumente za model i algoritme
+- napravi da se vrte opcije konzole dok se ne ugasi ili napiše "exit"
+- napravi prikaz brojeva i rezultata
+- dodaj glagole i njihove prigodne argumente
+
++ Result implementacija za razlièite tipove funkcija
 
 Implementacija polinomijalne regresije
 + https://www.geeksforgeeks.org/machine-learning/polynomial-regression-from-scratch-using-python/

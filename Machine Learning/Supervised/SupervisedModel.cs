@@ -4,10 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Machine_Learning
+namespace Machine_Learning.Supervised
 {
-    // Je li mogu model svesti na metode koje će vrijediti za svaki moguću funkciju? Ako imaš lin za lin da vrijedi, ako imaš nelin da vrijedi za nelin
-    internal class BasicModel
+    internal class SupervisedModel
     {
         private ISupervisedAlgorithm algorithm;
         private bool hasBeenTrained;
@@ -25,14 +24,14 @@ namespace Machine_Learning
             private set { workingFunction = value; }
         }
 
-        public BasicModel()
+        public SupervisedModel()
         {
             this.algorithm = new LinearRegression_Algorithm();
             this.hasBeenTrained = false;
             this.workingFunction = NullResult.GetInstance();
         }
 
-        public BasicModel(ISupervisedAlgorithm algorithm) : this()
+        public SupervisedModel(ISupervisedAlgorithm algorithm) : this()
         {
             this.algorithm = algorithm;
         }

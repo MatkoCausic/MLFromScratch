@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Machine_Learning.Supervised.Classification.Binary
 {
-    internal interface IBinaryClassificationAlgorithm
+    internal interface IBinaryClassificationAlgorithm : ISupervisedAlgorithm
     {
     }
 }
