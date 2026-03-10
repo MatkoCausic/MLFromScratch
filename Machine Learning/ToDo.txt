@@ -1,6 +1,15 @@
 https://www.geeksforgeeks.org/machine-learning/ml-classification-vs-regression/
 https://www.geeksforgeeks.org/machine-learning/regression-in-machine-learning/
 
+Simoblièna regresija
+- ništa, super zanimljiva tema
+- https://en.wikipedia.org/wiki/Symbolic_regression
+
+Vrijednosno programiranje
+- genetski algoritmi
+- odreðivanje optimalnih vrijednosti za danu funkciju/sustav
+- npr. tuning parametara (odreðivanje vrijednosti PID-a, portfolio alokacija)
+
 Napravi konzolnu aplikaciju
 - napravi argumente za model i algoritme
 - napravi da se vrte opcije konzole dok se ne ugasi ili napiše "exit"
